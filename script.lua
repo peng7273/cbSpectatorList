@@ -13,10 +13,11 @@ local boxOutline = {
 }
 
 local config = {
-    enabled = true
+    enabled = true,
+    column_offset = 20
 }
 
-local spectators = {
+local spectatorsTest = {
     'Xpiredd',
     'Nigger',
     'Pleb',
@@ -28,41 +29,24 @@ local spectators = {
     'Mohammed'
 }
 
-local column_offset = 5
 local column = 0
 local spectatorList = {}
 
-function add(str)
-    for i, v in pairs(spectatorList) do
-        if v == str then
-            return
-        else
-            table.insert(spectatorList, str)
-        end
+function spectator_draw(names)
+    for i, v in pairs(names) do
+        table.insert(spectatorList, v)
     end
 end
 
-function remove(str)
-    if spectatorList then
-        for i, v in pairs(spectatorList) do
-            if v == str then
-                table.remove(spectatorList, str)
-            end
-        end
-    end
-end
+-- spectator_draw(spectators)
 
 dx9.DrawFilledBox({boxOutline.x, boxOutline.y}, {boxOutline.width, boxOutline.height}, {255, 0, 255})
 dx9.DrawFilledBox({box.x, box.y}, {box.width, box.height}, {28, 28, 30})
 
 dx9.DrawString({boxOutline.x * 2, boxOutline.y - 1}, {255, 255, 255}, 'Possible Spectators')
 
-for i, v in pairs(spectators) do
-    add(v)
-end
-
 for i, v in pairs(spectatorList) do
-    column = column + column_offset
-    dx9.DrawString({box.x * 2, box.y + column}, {255, 255, 255}, str)
+    column = column + config.column_offset
+    dx9.DrawString({box.x * 1.5, box.y + column}, {255, 255, 255}, v)
 end
 column = 0
